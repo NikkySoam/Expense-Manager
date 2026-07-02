@@ -19,7 +19,7 @@ const Dashboard = () => {
 
   const fetchExpenses = async () => {
     try {
-      const { data } = await axios.get('http://localhost:5000/api/expenses', {
+      const { data } = await axios.get('/api/expenses', {
         headers: { Authorization: `Bearer ${user.token}` }
       });
       setExpenses(data);
@@ -30,7 +30,7 @@ const Dashboard = () => {
 
   const handleAddExpense = async (expenseData) => {
     try {
-      const { data } = await axios.post('http://localhost:5000/api/expenses', expenseData, {
+      const { data } = await axios.post('/api/expenses', expenseData, {
         headers: { Authorization: `Bearer ${user.token}` }
       });
       setExpenses([data, ...expenses]);
@@ -42,7 +42,7 @@ const Dashboard = () => {
   const handleDeleteExpense = async (id) => {
     if (!window.confirm('Are you sure you want to delete this expense?')) return;
     try {
-      await axios.delete(`http://localhost:5000/api/expenses/${id}`, {
+      await axios.delete(`/api/expenses/${id}`, {
         headers: { Authorization: `Bearer ${user.token}` }
       });
       setExpenses(expenses.filter(e => e._id !== id));

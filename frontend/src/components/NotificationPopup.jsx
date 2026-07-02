@@ -19,7 +19,7 @@ const NotificationPopup = () => {
 
   const fetchNotifications = async () => {
     try {
-      const { data } = await axios.get('http://localhost:5000/api/notifications', {
+      const { data } = await axios.get('/api/notifications', {
         headers: { Authorization: `Bearer ${user.token}` }
       });
       setNotifications(data);
@@ -40,7 +40,7 @@ const NotificationPopup = () => {
 
   const checkMonthEndAlert = async () => {
     try {
-      await axios.post('http://localhost:5000/api/expenses/check-alerts', {}, {
+      await axios.post('/api/expenses/check-alerts', {}, {
         headers: { Authorization: `Bearer ${user.token}` }
       });
       // Fetch again in case a new alert was created
@@ -52,7 +52,7 @@ const NotificationPopup = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/notifications/${id}`, {
+      await axios.delete(`/api/notifications/${id}`, {
         headers: { Authorization: `Bearer ${user.token}` }
       });
       setNotifications(notifications.filter(n => n._id !== id));
@@ -66,7 +66,7 @@ const NotificationPopup = () => {
 
   const markAsRead = async (id) => {
     try {
-      await axios.put(`http://localhost:5000/api/notifications/${id}`, {}, {
+      await axios.put(`/api/notifications/${id}`, {}, {
         headers: { Authorization: `Bearer ${user.token}` }
       });
       setNotifications(notifications.map(n => n._id === id ? { ...n, read: true } : n));
