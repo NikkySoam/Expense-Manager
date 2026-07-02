@@ -31,18 +31,11 @@ app.use('/api/notifications', notificationRoutes);
 
 const path = require('path');
 
-// Serve frontend in production
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '../frontend/dist')));
-  // Express 5 requires named wildcards or regex for catch-all routes
-  app.get('/(.*)', (req, res) => {
-    res.sendFile(path.resolve(__dirname, '../frontend', 'dist', 'index.html'));
-  });
-} else {
-  app.get('/', (req, res) => {
-    res.send('API is running...');
-  });
-}
+// Since the frontend is deployed separately on Vercel, 
+// the backend only needs to serve API routes.
+app.get('/', (req, res) => {
+  res.send('API is running...');
+});
 
 const PORT = process.env.PORT || 5000;
 
